@@ -19,4 +19,4 @@ for i,value1 in enumerate(list1):
   for value2 in list2:
     if value1 == value2:
       count = count + 1
-  print(i, count)
+  print(value1, count)
