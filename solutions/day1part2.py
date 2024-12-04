@@ -2,6 +2,8 @@ list1 = []
 list2 = []
 line = []
 counts = []
+finalList = []
+answer = 0
 
 with open('resources/day1.txt', 'r') as input:
   lines = input.readlines()
@@ -19,4 +21,17 @@ for i,value1 in enumerate(list1):
   for value2 in list2:
     if value1 == value2:
       count = count + 1
-  print(value1, count)
+  counts.append(count)
+
+for i,value1 in enumerate(list1):
+  count = value1 * counts[i]
+  finalList.append(count)
+
+for i,value in enumerate(finalList):
+  finalList[i] = int(value or 0)
+
+  answer = answer + finalList[i]
+
+
+print(answer)
+
