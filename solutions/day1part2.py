@@ -24,7 +24,7 @@ for i,value1 in enumerate(list1):
   counts.append(count)
 
 for i,value1 in enumerate(list1):
-  count = value1 * counts[i]
+  count = int(value1 or 0) * counts[i]
   finalList.append(count)
 
 for i,value in enumerate(finalList):
