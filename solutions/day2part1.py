@@ -1,7 +1,7 @@
 lines = []
 results = []
-order = []
-orderLine = []
+safetyBools = []
+safetyValues = []
 isSafe = []
 final = 0
 
@@ -18,46 +18,45 @@ for row in lines:
   for i,value in enumerate(row):
     row[i] = int(value)
 
+def safetyCheck(line):
+  for x in range(0, len(line) - 1):
+    lineItem = 0
+    if ((line[x] < line[x + 1]) and (abs(line[x + 1] - line[x]) <= 3) and (abs(line[x + 1] - line[x]) >= 1)):
+       lineItem = 1
+    elif ((line[x] > line[x + 1]) and (abs(line[x] - line[x + 1]) <= 3) and (abs(line[x] - line[x - 1]) >=1)):
+      lineItem = 2
+    else:
+      lineItem = 0
+    safetyValues.append(lineItem)
 
 for index, line in enumerate(lines):
-  orderLine = []
+  safetyValues = []
 
   #steps through the array creating a new array orderLine for each one
   #adding 1 for if it's decreasing within safe levels, 2 if increasing
   #within safe levels, and 0 if its unsafe
-  for x in range(0, len(line) - 1):
-    lineItem = 0
-    if ((line[x] < line[x + 1]) and (line[x + 1] - line[x] <= 3) and (line[x + 1] - line[x] >= 1)):
-       lineItem = 1
-    elif ((line[x] > line[x + 1]) and (line[x] - line[x + 1] <= 3) and (line[x] - line[x - 1] >=1)):
-      lineItem = 2
-    else:
-      lineItem = 0
-    orderLine.append(lineItem)
+  safetyCheck(line)
   
-  order = []
-  for i in range (0, len(orderLine) - 1):
+  #for each list of 0, 1, or 2, go through and check if the numbers are all equal
+  safetyBools = []
+  for i in range (0, len(safetyValues) - 1):
     retval = False
-    if (orderLine[i] == orderLine[i + 1]):
+    if (safetyValues[i] == safetyValues[i + 1]):
       retval = True
-    order.append(retval)
+    safetyBools.append(retval)
 
 
-  if (all(order)):
+  #if all values are equal, commit a value of true in a new array for that line
+  if (all(safetyBools)):
     isSafe.append(True)
   else:
     isSafe.append(False)
-  
-  if (index == 2):
-    print(lines[2])
-    print(orderLine)
-    print(order)
-    print(isSafe[2])
 
 
 
-    
+#add all true values together
 for value in isSafe:
   if value:
     final = final + 1
 
+print(final)
